@@ -23,12 +23,14 @@ dag = DAG(
 
 )
 
+# task 1: print welcome
 print_welcome_task = PythonOperator(
     task_id='print_welcome',
     python_callable=print_welcome,
     dag=dag
 )
 
+# task 2: print date
 print_date_task = PythonOperator(
     task_id='print_date',
     python_callable=print_date,
@@ -36,6 +38,7 @@ print_date_task = PythonOperator(
 
 )
 
+# task 3: print random quote
 print_random_quote = PythonOperator(
     task_id='print_random_quote',
     python_callable=print_random_quote,
