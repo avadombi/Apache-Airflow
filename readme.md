@@ -205,7 +205,17 @@ print_welcome_task >> print_date_task >> print_random_quote
 
 * Step 12: save the file. The dag will be visible in the UI within 5 mins
 
-Refresh the page to see the dag. Let's trigger it manually.
+Refresh the page to see the dag.
+
+* Step 13: Let's trigger it manually.
 It works !!!
 
 ![trigger dag manually - it works and succeeded](./Images/image-3.png)
+
+* Step 14: Compose down the docker-compose file
+
+Right-click and choose compose down
+OR (in the cmd)
+docker compose -f "ProjectAirflow\docker-compose.yml" down
+
+Then click in the terminal (vscode) and "enter" to close it.
