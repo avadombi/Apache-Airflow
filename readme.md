@@ -171,18 +171,20 @@ def print_random_quote():
 
 dag = DAG(
     'welcome_dag',
-    default_args={'start_date': days_ago(1)},
-    schedule_interval='0 23 * * *',
+    default_args={'start_date': days_ago(1)},  # run daily
+    schedule_interval='0 23 * * *', # on 23h00
     catchup=False
 
 )
 
+# task 1: print welcome
 print_welcome_task = PythonOperator(
     task_id='print_welcome',
     python_callable=print_welcome,
     dag=dag
 )
 
+# task 2: print date
 print_date_task = PythonOperator(
     task_id='print_date',
     python_callable=print_date,
@@ -190,6 +192,7 @@ print_date_task = PythonOperator(
 
 )
 
+# task 3: print random quote
 print_random_quote = PythonOperator(
     task_id='print_random_quote',
     python_callable=print_random_quote,
@@ -200,3 +203,9 @@ print_random_quote = PythonOperator(
 print_welcome_task >> print_date_task >> print_random_quote
 ```
 
+* Step 12: save the file. The dag will be visible in the UI within 5 mins
+
+Refresh the page to see the dag. Let's trigger it manually.
+It works !!!
+
+![trigger dag manually - it works and succeeded](./Images/image-3.png)
