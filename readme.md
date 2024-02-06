@@ -219,3 +219,5 @@ OR (in the cmd)
 docker compose -f "ProjectAirflow\docker-compose.yml" down
 
 Then click in the terminal (vscode) and "enter" to close it.
+
+* Step 15: change your password
