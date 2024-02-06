@@ -221,3 +221,59 @@ docker compose -f "ProjectAirflow\docker-compose.yml" down
 Then click in the terminal (vscode) and "enter" to close it.
 
 * Step 15: change your password
+
+# 3. Go deep into airflow
+# 3.1 Airflow configuration file: airflow.cfg
+Every airflow setup has its `dags` folder. The `dags` path is set up in airflow.cfg:
+```
+dags_folder = /opt/airflow/dags
+```
+They're many other setting you can look at.
+
+# 3.2. Import our own functions
+
+For that, create a plugins directory at the root of airflow directory. Then, create your python file which will contains the functions.
+
+In the dags directory, open your dag file (.py) and import directly your function:
+```
+from my_module import my_function
+```
+
+# 3.3. Operator types
+
+A task is created by instantiating a specific operator and providing the necessary task label parameters.
+
+# 3.4. Set up dependencies
+Many ways to set up dependencies between tasks:
+
+### 3.4.1. Bitshift operators (>> or <<)
+```
+task1 >> task2 >> task3
+```
+
+### 3.4.2. Set upstream and set downstream function
+```
+task1.set_upstream(task2)
+task3.set_downsream(task2)
+```
+
+### 3.4.3. Chain function
+```
+chain(task1, task2, task3)
+```
+
+### 3.4.4. Using TaskFlow API
+
+Dependencies are automatically inferred based on the sequence of task function call
+```
+task1()
+task2()
+task3()
+```
+
+
+# 3.4. Provider package
+
+
+
+
