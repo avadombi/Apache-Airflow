@@ -1,12 +1,12 @@
 import os
+import errno
 import pandas as pd
 
 def clean_data():
     # 1. load raw data into DataFrame
     # downloaded files are stored in tmp (in airflow)
-    # here, we will store it in tmp/xrate.csv
     path = '/tmp/xrate.csv' 
-    data = pd.read_csv('/tmp/xrate.csv', header=None)
+    data = pd.read_csv(path, header=None)
 
     # cleanse data
     default_values = {
@@ -26,8 +26,12 @@ def clean_data():
 
     # create the directory path if it does not exist
     data_dir = f'/opt/airflow/data/xrate_cleansed/{year}/{month}/{day}'
-    os.mkdir(data_dir, exist_ok=True)
+    # os.mkdir(data_dir, exist_ok=True)
+    try:
+        os.makedirs(data_dir)
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
 
     # save the cleaned data to a new file
-    clean_data.to_csv(f'{data_dir}/xrate.csv', index=False)
-
+    cleaned_data.to_csv(f'{data_dir}/xrate.csv', index=False)

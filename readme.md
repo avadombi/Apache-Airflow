@@ -232,12 +232,51 @@ They're many other setting you can look at.
 
 # 3.2. Import our own functions
 
-For that, create a plugins directory at the root of airflow directory. Then, create your python file which will contains the functions.
+For that, create a plugins directory at the root of airflow directory. `plugins` **should** be a module. So, a __init__ file is necessary. The __init__ file could be empty but you must create it. Below is the hieararchy in a module.
+```
+my_module/
+    __init__.py
+    my_functions.py
+    my_classes.py
+```
+
+In our case:
+```
+plugins/
+    __init__.py
+    my_func_file.py
+    my_classes.py
+```
+
+Below an example of the content of an __init__
+```
+# __init__.py
+
+from clean_data import clean_data
+
+# names of the objects you wish to export from your module.
+# In this example, we export only the clean_data function.
+__all__ = ['clean_data']
+```
 
 In the dags directory, open your dag file (.py) and import directly your function:
 ```
-from my_module import my_function
+import clean_data (the function, not the .py)
 ```
+
+But if you want to export the clean_data.py instead:
+```
+# __init__.py
+
+from clean_data import clean_data
+```
+
+Thus,
+```
+from clean_data import clean_data (the function, not the .py)
+```
+
+Note that you have to re-up you docker-compose for this to work because airflow needs to recognize the plugins directory
 
 # 3.3. Operator types
 
