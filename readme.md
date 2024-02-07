@@ -278,11 +278,29 @@ from clean_data import clean_data (the function, not the .py)
 
 Note that you have to re-up you docker-compose for this to work because airflow needs to recognize the plugins directory
 
-# 3.3. Operator types
+## 3.3. Operator types
 
 A task is created by instantiating a specific operator and providing the necessary task label parameters.
 
-# 3.4. Set up dependencies
+### 3.3.1. EmailOperator (using the bytemark/smtp image)
+To use the email operator, add a new container in your docker-compose file.
+* The image is: 
+bytemark/smtp
+
+* Give the following name to the container
+avad-smtp
+
+### 3.3.2. Set the appropriate configurations in airflow.cfg
+**Suppose you want to send email to gmail address emails.**
+Search for smtp and for all smtp variables you find set the corresponding value as:
+
+smtp_host : Pour Gmail, utilisez smtp.gmail.com comme adresse IP ou nom d'hôte du serveur de messagerie.
+smtp_port : Utilisez le port sécurisé SMTP de Gmail, qui est 465.
+smtp_user : email de celui qui envoie
+smtp_password : Entrez le mot de passe associé à votre compte Gmail.
+
+
+## 3.4. Set up dependencies
 Many ways to set up dependencies between tasks:
 
 ### 3.4.1. Bitshift operators (>> or <<)

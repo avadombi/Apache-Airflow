@@ -10,3 +10,8 @@ services:
       - "8080:8080"
 
     command: airflow standalone
+
+  avad-smtp:
+    image: bytemark/smtp
+    restart: always
+
